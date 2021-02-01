@@ -22,12 +22,12 @@ module Relationships
 
   def brother_in_law
     (spouse ? spouse.siblings : []).select(&:is_male?) \
-      + mother.daughter.map(&:spouse).compact
+      + (mother ? mother.daughter.map(&:spouse).compact : [])
   end
 
   def sister_in_law
     (spouse ? spouse.siblings : []).select {|sibling| !sibling.is_male?} \
-      + mother.son.map(&:spouse).compact
+      + (mother ? mother.son.map(&:spouse).compact : [])
   end
 
   def maternal_aunt
